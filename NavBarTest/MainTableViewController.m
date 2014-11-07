@@ -12,14 +12,15 @@
 #define NAV_BAR_MIN_CENTER_Y -2
 #define NAV_BAR_MAX_CENTER_Y 42
 #define NAV_BAR_CENTER_THRESHOLD 15
-
-
+#define TAB_BAR_HEIGHT 49
 
 @interface MainTableViewController () <UIScrollViewDelegate>
 @property (nonatomic) CGFloat startOffset;
 #warning Get rid of this
 @property (nonatomic) CGFloat startPostionNavBar;
-@property (nonatomic) int direction; // 0 for up 1 for down
+@property (nonatomic) CGFloat startPostionTabBar;
+@property (nonatomic) CGFloat tabBarMaxCenterY;
+@property (nonatomic) CGFloat tabBarMinCenterY;
 @end
 
 @implementation MainTableViewController
@@ -32,6 +33,10 @@
     [self.refreshControl addTarget:self
                             action:@selector(functionPlaceHolder)
                   forControlEvents:UIControlEventValueChanged];
+    self.tabBarMinCenterY = self.navigationController.tabBarController.tabBar.center.y;
+    self.tabBarMaxCenterY = self.tabBarMinCenterY + TAB_BAR_HEIGHT;
+    NSLog(@"Tab bar min : %f",self.tabBarMinCenterY);
+    NSLog(@"Tab bar max : %f", self.tabBarMaxCenterY);
 }
 
 - (void)functionPlaceHolder
@@ -71,17 +76,24 @@
 {
     self.startOffset = self.tableView.contentOffset.y;
     self.startPostionNavBar = self.navigationController.navigationBar.center.y;
+    self.startPostionTabBar = self.navigationController.tabBarController.tabBar.center.y;
     NSLog(@"---------startoffset: %f",self.startOffset);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    UITabBar *tabBar = self.navigationController.tabBarController.tabBar;
+    
     if (self.tableView.contentOffset.y > -64) {
         NSLog(@"%f",self.tableView.contentOffset.y);
-        [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x,MIN(NAV_BAR_MAX_CENTER_Y, MAX(NAV_BAR_MIN_CENTER_Y, self.startPostionNavBar+self.startOffset-self.tableView.contentOffset.y)))];
+        [navBar setCenter:CGPointMake(navBar.center.x,MIN(NAV_BAR_MAX_CENTER_Y, MAX(NAV_BAR_MIN_CENTER_Y, self.startPostionNavBar+self.startOffset-self.tableView.contentOffset.y)))];
+        NSLog(@"moveDistance: %f", self.startOffset - self.tableView.contentOffset.y);
+        [tabBar setCenter:CGPointMake(tabBar.center.x, MIN(self.tabBarMaxCenterY, MAX(self.tabBarMinCenterY, self.startPostionTabBar-(self.startOffset-self.tableView.contentOffset.y)*49/44)))];
+        NSLog(@"--------tabbarcentery: %f",tabBar.center.y);
     }  else {
-        [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x,NAV_BAR_MAX_CENTER_Y)];
+        [navBar setCenter:CGPointMake(navBar.center.x,NAV_BAR_MAX_CENTER_Y)];
+        [tabBar setCenter:CGPointMake(tabBar.center.x, self.tabBarMinCenterY)];
     }
     [self updateNavBar];
     
@@ -93,6 +105,7 @@
     {
         self.startOffset = self.tableView.contentOffset.y;
         self.startPostionNavBar = self.navigationController.navigationBar.center.y;
+        self.startPostionTabBar = self.navigationController.tabBarController.tabBar.center.y;
     }
     NSLog(@"Nav bar center y: %f",self.navigationController.navigationBar.center.y);
     NSLog(@"Moved Distance: %f", self.startOffset-self.tableView.contentOffset.y);
@@ -114,12 +127,12 @@
 
 - (void)endScrolling
 {
-    NSLog(@"---------END");
     CGFloat centerY = self.navigationController.navigationBar.center.y;
-    NSLog(@"-----current nav bar center: %f",centerY);
     CGFloat correctCenter = centerY < NAV_BAR_CENTER_THRESHOLD ? NAV_BAR_MIN_CENTER_Y   : NAV_BAR_MAX_CENTER_Y;
     
-    NSLog(@"-----Correct Center : %f",correctCenter);
+    CGFloat centerYTabBar = self.navigationController.tabBarController.tabBar.center.y;
+    CGFloat correctCenterTabBar = centerY < NAV_BAR_CENTER_THRESHOLD ? self.tabBarMaxCenterY   : self.tabBarMinCenterY;
+    
     if (centerY != NAV_BAR_MAX_CENTER_Y && centerY != NAV_BAR_MIN_CENTER_Y) {
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x, correctCenter)];
@@ -127,6 +140,13 @@
             [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:(correctCenter - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
         } completion:nil];
         
+    }
+    
+    if (centerYTabBar != self.tabBarMaxCenterY && centerYTabBar != self.tabBarMinCenterY) {
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+            [self.navigationController.tabBarController.tabBar setCenter:CGPointMake(self.navigationController.tabBarController.tabBar.center.x, correctCenterTabBar)];
+        } completion:nil];
+
     }
 }
 
