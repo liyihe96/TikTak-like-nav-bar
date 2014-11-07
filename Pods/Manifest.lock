@@ -1,0 +1,13 @@
+PODS:
+  - AFSwipeToHide (0.1.0)
+  - TLYShyNavBar (0.9.8)
+
+DEPENDENCIES:
+  - AFSwipeToHide
+  - TLYShyNavBar
+
+SPEC CHECKSUMS:
+  AFSwipeToHide: 21387d9ca73b7909f58b0ca60a8a3ea71f11f209
+  TLYShyNavBar: cf15a919cf7f6e79080ac5b95b56580a752cf64d
+
+COCOAPODS: 0.34.2
