@@ -13,11 +13,12 @@
 #define NAV_BAR_MAX_CENTER_Y 42
 #define NAV_BAR_CENTER_THRESHOLD 15
 
+
+
 @interface MainTableViewController () <UIScrollViewDelegate>
 @property (nonatomic) CGFloat startOffset;
 #warning Get rid of this
 @property (nonatomic) CGFloat startPostionNavBar;
-@property (nonatomic) CGFloat lastOffset;
 @property (nonatomic) int direction; // 0 for up 1 for down
 @end
 
@@ -25,18 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-//    self.shyNavBarManager.scrollView = self.tableView;
-//    self.navigationController.hidesBarsOnSwipe = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor purpleColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
-//    [self.refreshControl addTarget:self action:@selector(changeValueOfRefreshControl) forControlEvents:UIControlEvent]
     [self.refreshControl addTarget:self
                             action:@selector(functionPlaceHolder)
                   forControlEvents:UIControlEventValueChanged];
@@ -44,7 +36,6 @@
 
 - (void)functionPlaceHolder
 {
-    NSLog(@"-------------%f",self.tableView.contentOffset.y);
     [self.refreshControl endRefreshing];
 }
 
@@ -78,7 +69,6 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    self.lastOffset = self.tableView.contentOffset.y;
     self.startOffset = self.tableView.contentOffset.y;
     self.startPostionNavBar = self.navigationController.navigationBar.center.y;
     NSLog(@"---------startoffset: %f",self.startOffset);
@@ -88,8 +78,7 @@
 {
 
     if (self.tableView.contentOffset.y > -64) {
-    self.lastOffset = self.tableView.contentOffset.y;
-    NSLog(@"%f",self.tableView.contentOffset.y);
+        NSLog(@"%f",self.tableView.contentOffset.y);
         [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x,MIN(NAV_BAR_MAX_CENTER_Y, MAX(NAV_BAR_MIN_CENTER_Y, self.startPostionNavBar+self.startOffset-self.tableView.contentOffset.y)))];
     }  else {
         [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x,NAV_BAR_MAX_CENTER_Y)];
@@ -140,49 +129,5 @@
         
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
