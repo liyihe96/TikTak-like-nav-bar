@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../Downloads/navbar.inc">
+   </FileRef>
+   <FileRef
+      location = "group:SwiftyJSON.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:NavBarTest.xcodeproj">
    </FileRef>
    <FileRef

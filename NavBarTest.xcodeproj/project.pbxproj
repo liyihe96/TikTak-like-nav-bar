@@ -13,7 +13,7 @@
 		077438031A0D357A0068E149 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 077438021A0D357A0068E149 /* Images.xcassets */; };
 		077438061A0D357B0068E149 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077438041A0D357B0068E149 /* LaunchScreen.xib */; };
 		077438121A0D357B0068E149 /* NavBarTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 077438111A0D357B0068E149 /* NavBarTestTests.m */; };
-		0774381D1A0D35FB0068E149 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774381C1A0D35FB0068E149 /* MainTableViewController.m */; };
+		0774381D1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774381C1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.m */; };
 		403F05C945A44AFE6E916CEB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B2AB5B782C74D2267F4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -40,8 +40,8 @@
 		0774380B1A0D357B0068E149 /* NavBarTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavBarTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		077438101A0D357B0068E149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		077438111A0D357B0068E149 /* NavBarTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavBarTestTests.m; sourceTree = "<group>"; };
-		0774381B1A0D35FB0068E149 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
-		0774381C1A0D35FB0068E149 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		0774381B1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoShrinkNavBarTableViewController.h; sourceTree = "<group>"; };
+		0774381C1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoShrinkNavBarTableViewController.m; sourceTree = "<group>"; };
 		196C0B2AB5B782C74D2267F4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE24AFABAC3C38906D608DDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,8 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				077437F61A0D357A0068E149 /* AppDelegate.h */,
-				0774381B1A0D35FB0068E149 /* MainTableViewController.h */,
-				0774381C1A0D35FB0068E149 /* MainTableViewController.m */,
+				0774381B1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.h */,
+				0774381C1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.m */,
 				077437F71A0D357A0068E149 /* AppDelegate.m */,
 				077437FF1A0D357A0068E149 /* Main.storyboard */,
 				077438021A0D357A0068E149 /* Images.xcassets */,
@@ -280,7 +280,7 @@
 			files = (
 				077437F81A0D357A0068E149 /* AppDelegate.m in Sources */,
 				077437F51A0D357A0068E149 /* main.m in Sources */,
-				0774381D1A0D35FB0068E149 /* MainTableViewController.m in Sources */,
+				0774381D1A0D35FB0068E149 /* AutoShrinkNavBarTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

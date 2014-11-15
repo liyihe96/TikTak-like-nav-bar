@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTableViewController : UITableViewController
+@interface AutoShrinkNavBarTableViewController : UITableViewController
 
 
 @end

@@ -6,37 +6,39 @@
 //  Copyright (c) 2014 Yihe Li. All rights reserved.
 //
 
-#import "MainTableViewController.h"
-//#import "TLYShyNavBarManager.h"
+#import "AutoShrinkNavBarTableViewController.h"
+
 #define NAV_BAR_HEIGHT 44
 #define NAV_BAR_MIN_CENTER_Y -2
 #define NAV_BAR_MAX_CENTER_Y 42
-#define NAV_BAR_CENTER_THRESHOLD 15
+#define NAV_BAR_CENTER_THRESHOLD 10
 #define TAB_BAR_HEIGHT 49
 
-@interface MainTableViewController () <UIScrollViewDelegate>
+@interface AutoShrinkNavBarTableViewController () <UIScrollViewDelegate>
 @property (nonatomic) CGFloat startOffset;
-#warning Get rid of this
 @property (nonatomic) CGFloat startPostionNavBar;
 @property (nonatomic) CGFloat startPostionTabBar;
 @property (nonatomic) CGFloat tabBarMaxCenterY;
 @property (nonatomic) CGFloat tabBarMinCenterY;
 @end
 
-@implementation MainTableViewController
+@implementation AutoShrinkNavBarTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor purpleColor];
-    self.refreshControl.tintColor = [UIColor whiteColor];
-    [self.refreshControl addTarget:self
-                            action:@selector(functionPlaceHolder)
-                  forControlEvents:UIControlEventValueChanged];
+    
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    self.refreshControl.backgroundColor = [UIColor purpleColor];
+//    self.refreshControl.tintColor = [UIColor whiteColor];
+//    [self.refreshControl addTarget:self
+//                            action:@selector(functionPlaceHolder)
+//                  forControlEvents:UIControlEventValueChanged];
+//    
+    
     self.tabBarMinCenterY = self.navigationController.tabBarController.tabBar.center.y;
     self.tabBarMaxCenterY = self.tabBarMinCenterY + TAB_BAR_HEIGHT;
-    NSLog(@"Tab bar min : %f",self.tabBarMinCenterY);
-    NSLog(@"Tab bar max : %f", self.tabBarMaxCenterY);
+//    NSLog(@"Tab bar min : %f",self.tabBarMinCenterY);
+//    NSLog(@"Tab bar max : %f", self.tabBarMaxCenterY);
 }
 
 - (void)functionPlaceHolder
@@ -72,12 +74,13 @@
     return cell;
 }
 
+#pragma mark - AutoHiding Nav Bar
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.startOffset = self.tableView.contentOffset.y;
     self.startPostionNavBar = self.navigationController.navigationBar.center.y;
     self.startPostionTabBar = self.navigationController.tabBarController.tabBar.center.y;
-    NSLog(@"---------startoffset: %f",self.startOffset);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -86,11 +89,8 @@
     UITabBar *tabBar = self.navigationController.tabBarController.tabBar;
     
     if (self.tableView.contentOffset.y > -64) {
-        NSLog(@"%f",self.tableView.contentOffset.y);
         [navBar setCenter:CGPointMake(navBar.center.x,MIN(NAV_BAR_MAX_CENTER_Y, MAX(NAV_BAR_MIN_CENTER_Y, self.startPostionNavBar+self.startOffset-self.tableView.contentOffset.y)))];
-        NSLog(@"moveDistance: %f", self.startOffset - self.tableView.contentOffset.y);
         [tabBar setCenter:CGPointMake(tabBar.center.x, MIN(self.tabBarMaxCenterY, MAX(self.tabBarMinCenterY, self.startPostionTabBar-(self.startOffset-self.tableView.contentOffset.y)*49/44)))];
-        NSLog(@"--------tabbarcentery: %f",tabBar.center.y);
     }  else {
         [navBar setCenter:CGPointMake(navBar.center.x,NAV_BAR_MAX_CENTER_Y)];
         [tabBar setCenter:CGPointMake(tabBar.center.x, self.tabBarMinCenterY)];
@@ -107,8 +107,6 @@
         self.startPostionNavBar = self.navigationController.navigationBar.center.y;
         self.startPostionTabBar = self.navigationController.tabBarController.tabBar.center.y;
     }
-    NSLog(@"Nav bar center y: %f",self.navigationController.navigationBar.center.y);
-    NSLog(@"Moved Distance: %f", self.startOffset-self.tableView.contentOffset.y);
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithWhite:1 alpha: (self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
 }

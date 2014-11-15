@@ -1,5 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFSwipeToHide" "${PODS_ROOT}/Headers/Public/TLYShyNavBar"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFSwipeToHide" -isystem "${PODS_ROOT}/Headers/Public/TLYShyNavBar"
-OTHER_LDFLAGS = -ObjC -l"Pods-AFSwipeToHide" -l"Pods-TLYShyNavBar" -framework "UIKit"
-PODS_ROOT = ${SRCROOT}/Pods
