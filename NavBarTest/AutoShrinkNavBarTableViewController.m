@@ -41,10 +41,10 @@
 //    NSLog(@"Tab bar max : %f", self.tabBarMaxCenterY);
 }
 
-- (void)functionPlaceHolder
-{
-    [self.refreshControl endRefreshing];
-}
+//- (void)functionPlaceHolder
+//{
+//    [self.refreshControl endRefreshing];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
