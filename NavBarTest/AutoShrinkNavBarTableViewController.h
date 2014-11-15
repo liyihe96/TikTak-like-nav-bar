@@ -11,5 +11,4 @@
 @interface AutoShrinkNavBarTableViewController : UITableViewController
 @property (nonatomic, strong) UIColor *titleColor;
 
-
 @end
