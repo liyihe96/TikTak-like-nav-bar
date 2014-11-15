@@ -38,7 +38,6 @@
     
     self.tabBarMinCenterY = CGRectGetHeight(self.view.frame) - TAB_BAR_HEIGHT/2;
     self.tabBarMaxCenterY = self.tabBarMinCenterY + TAB_BAR_HEIGHT;
-    NSLog(@"%f-------Fuck ", self.tabBarMaxCenterY);
     
     //overrideThis
     self.titleColor = [UIColor whiteColor];
@@ -58,14 +57,12 @@
     [super viewWillDisappear:animated];
     self.leaving = YES;
     [self resetBeforeLeaving];
-    NSLog(@"Will dis");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     self.leaving = NO;
-    NSLog(@"Did dis");
 }
 
 #pragma mark - Table view data source
@@ -111,7 +108,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"Did scroll");
     UINavigationBar *navBar = self.navigationController.navigationBar;
     UITabBar *tabBar = self.navigationController.tabBarController.tabBar;
     
