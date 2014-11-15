@@ -20,7 +20,6 @@
 @property (nonatomic) CGFloat startPostionTabBar;
 @property (nonatomic) CGFloat tabBarMaxCenterY;
 @property (nonatomic) CGFloat tabBarMinCenterY;
-@property (nonatomic, strong) UIColor *titleColor;
 @end
 
 @implementation AutoShrinkNavBarTableViewController

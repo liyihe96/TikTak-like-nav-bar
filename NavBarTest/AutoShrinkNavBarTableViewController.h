@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AutoShrinkNavBarTableViewController : UITableViewController
+@property (nonatomic, strong) UIColor *titleColor;
 
 
 @end
