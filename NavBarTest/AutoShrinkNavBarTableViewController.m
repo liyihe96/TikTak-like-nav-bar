@@ -20,6 +20,7 @@
 @property (nonatomic) CGFloat startPostionTabBar;
 @property (nonatomic) CGFloat tabBarMaxCenterY;
 @property (nonatomic) CGFloat tabBarMinCenterY;
+@property (nonatomic, strong) UIColor *titleColor;
 @end
 
 @implementation AutoShrinkNavBarTableViewController
@@ -35,10 +36,12 @@
 //                  forControlEvents:UIControlEventValueChanged];
 //    
     
-    self.tabBarMinCenterY = self.navigationController.tabBarController.tabBar.center.y;
+    self.tabBarMinCenterY = CGRectGetHeight(self.view.frame) - TAB_BAR_HEIGHT/2;
     self.tabBarMaxCenterY = self.tabBarMinCenterY + TAB_BAR_HEIGHT;
-//    NSLog(@"Tab bar min : %f",self.tabBarMinCenterY);
-//    NSLog(@"Tab bar max : %f", self.tabBarMaxCenterY);
+    NSLog(@"%f-------Fuck ", self.tabBarMaxCenterY);
+    
+    //overrideThis
+    self.titleColor = [UIColor whiteColor];
 }
 
 //- (void)functionPlaceHolder
@@ -48,18 +51,15 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return 100;
 }
 
@@ -69,7 +69,6 @@
     if (!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat: @"Index: %ld",(long)indexPath.row]];
     return cell;
 }
@@ -99,6 +98,16 @@
     
 }
 
+- (UIColor *)colorFromColor:(UIColor *)color withAlpha:(CGFloat)alpha
+{
+    CGFloat red, green, blue, myAlpha;
+    [color getRed: &red
+               green: &green
+                blue: &blue
+               alpha: &myAlpha];
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+
 - (void)updateNavBar
 {
     if(self.navigationController.navigationBar.center.y == NAV_BAR_MIN_CENTER_Y || self.navigationController.navigationBar.center.y == NAV_BAR_MAX_CENTER_Y)
@@ -107,8 +116,8 @@
         self.startPostionNavBar = self.navigationController.navigationBar.center.y;
         self.startPostionTabBar = self.navigationController.tabBarController.tabBar.center.y;
     }
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithWhite:1 alpha: (self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
+    [self.navigationController.navigationBar setTintColor:[self colorFromColor:self.titleColor withAlpha: (self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorFromColor:self.titleColor withAlpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -134,8 +143,8 @@
     if (centerY != NAV_BAR_MAX_CENTER_Y && centerY != NAV_BAR_MIN_CENTER_Y) {
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             [self.navigationController.navigationBar setCenter:CGPointMake(self.navigationController.navigationBar.center.x, correctCenter)];
-            [self.navigationController.navigationBar setTintColor:[UIColor colorWithWhite:1 alpha: (correctCenter - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
-            [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:(correctCenter - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
+            [self.navigationController.navigationBar setTintColor:[self colorFromColor:self.titleColor withAlpha:(correctCenter - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
+            [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorFromColor:self.titleColor withAlpha:(correctCenter - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
         } completion:nil];
         
     }

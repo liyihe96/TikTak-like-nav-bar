@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA2D65797B97A58E73D75811"
+               BlueprintIdentifier = "0668DC05C0AB3E28CB3149EC"
                BuildableName = "libPods-AFSwipeToHide.a"
                BlueprintName = "Pods-AFSwipeToHide"
                ReferencedContainer = "container:Pods.xcodeproj">
