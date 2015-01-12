@@ -52,6 +52,12 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self resetBeforeLeaving];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -146,7 +152,8 @@
 //    [self.navigationController.navigationItem.rightBarButtonItem setTintColor:[self colorFromColor:self.titleColor withAlpha: (self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
 //    [self.navigationController.navigationBar setTintColor:[self colorFromColor:self.titleColor withAlpha: (self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
     
-    [[UINavigationBar appearance] setBarTintColor:[self colorFromColor:self.titleColor withAlpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
+// This will cause nav bar flash bug when tapped on tab bar and switching another VC
+//    [[UINavigationBar appearance] setBarTintColor:[self colorFromColor:self.titleColor withAlpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]];
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorFromColor:self.titleColor withAlpha:(self.navigationController.navigationBar.center.y - NAV_BAR_MIN_CENTER_Y) / NAV_BAR_HEIGHT]}];
 }
